@@ -1,4 +1,4 @@
-const CACHE='kokelog-v1.4';
+const CACHE='kokelog-v1.5';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg'];
 
 self.addEventListener('install',e=>{
