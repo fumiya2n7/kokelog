@@ -55,11 +55,13 @@ function drawChart(canvasId,dayCount,wide){
  function dayX(i){return dayCount===1?pad.l+pw/2:pad.l+pw*(i/(dayCount-1))}
  function pointY(t){return pad.t+ph*(minutes(t)/1440)}
  function pts(kind){return days.map((d,i)=>{const arr=logs.filter(x=>x.day===d.key&&kindOf(x)===kind).sort((a,b)=>a.stamp-b.stamp);if(!arr.length)return null;const v=kind==="就寝"?arr[arr.length-1]:arr[0];return{x:dayX(i),y:pointY(v.time)}})}
- function line(kind,color){const p=pts(kind);ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();let drawing=false;p.forEach(q=>{if(!q){drawing=false;return}if(!drawing){ctx.moveTo(q.x,q.y);drawing=true}else ctx.lineTo(q.x,q.y)});ctx.stroke();p.forEach(q=>{if(!q)return;ctx.fillStyle=color;ctx.beginPath();ctx.arc(q.x,q.y,4,0,Math.PI*2);ctx.fill()})}
+ function line(kind,color){const p=pts(kind);ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();let drawing=false;p.forEach(q=>{if(!q){drawing=false;return}if(!drawing){ctx.moveTo(q.x,q.y);drawing=true}else ctx.lineTo(q.x,q.y)});ctx.stroke()}
  line("起床","#dc625a");line("就寝","#537ed6");
  days.forEach((d,i)=>{
+   logs.filter(x=>x.day===d.key&&kindOf(x)==="起床").forEach(v=>{ctx.fillStyle="#dc625a";ctx.beginPath();ctx.arc(dayX(i),pointY(v.time),3.4,0,Math.PI*2);ctx.fill()});
+   logs.filter(x=>x.day===d.key&&kindOf(x)==="就寝").forEach(v=>{ctx.fillStyle="#537ed6";ctx.beginPath();ctx.arc(dayX(i),pointY(v.time),3.4,0,Math.PI*2);ctx.fill()});
    logs.filter(x=>x.day===d.key&&kindOf(x)==="食事").forEach(v=>{ctx.fillStyle="#d7ad00";ctx.beginPath();ctx.arc(dayX(i),pointY(v.time),3.4,0,Math.PI*2);ctx.fill()});
-   logs.filter(x=>x.day===d.key&&kindOf(x)==="その他").forEach(v=>{ctx.fillStyle="#45a66b";ctx.beginPath();ctx.arc(dayX(i),pointY(v.time),3.1,0,Math.PI*2);ctx.fill()});
+   logs.filter(x=>x.day===d.key&&kindOf(x)==="その他").forEach(v=>{ctx.fillStyle="#45a66b";ctx.beginPath();ctx.arc(dayX(i),pointY(v.time),2.8,0,Math.PI*2);ctx.fill()});
  });
  if(wide)requestAnimationFrame(()=>{scroll.scrollLeft=scroll.scrollWidth});
 }
